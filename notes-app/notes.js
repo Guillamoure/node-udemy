@@ -39,6 +39,18 @@ const removeNote = title => {
   }
 }
 
+const listNotes = () => {
+  const notes = loadNotes()
+  console.log(chalk.blue.inverse('Your notes'))
+  notes.forEach(n => console.log(chalk.bold(n.title)))
+}
+
+const readNote = (title)=> {
+  const notes = loadNotes()
+  const note = notes.find(n => n.title === title)
+  console.log(chalk.yellow.inverse(note.body))
+}
+
 const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync('notes.json')
@@ -52,5 +64,7 @@ const loadNotes = () => {
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
-  removeNote: removeNote
+  removeNote: removeNote,
+  listNotes: listNotes,
+  readNote: readNote
 }
