@@ -1,6 +1,7 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
+
 const getNotes = () => {
   return 'Your notes...'
 }
