@@ -8,17 +8,16 @@ if(!input){
   return console.log("Please provide a location")
 }
 
-geocode(input, (error, data) => {
+geocode(input, (error, { latitude, longitude, location } = {} ) => {
   if (error){
     return console.log("Error:", error)
-  }
-  if (data){
-    forecast(data.latitude, data.longitude, (error, forecastData) => {
+  } else {
+    forecast(latitude, longitude, (error, { overall, temperature, feelslike}) => {
       if (error){
         return console.log("Error:", error)
       }
-      console.log(data.location)
-      console.log(forecastData.overall + `. It is currently ${forecastData.temperature} degrees out. It feels like ${forecastData.feelslike} degrees out.`)
+      console.log(location)
+      console.log(overall + `. It is currently ${temperature} degrees out. It feels like ${feelslike} degrees out.`)
     })
   }
 })
