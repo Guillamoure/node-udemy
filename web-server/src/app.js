@@ -4,19 +4,25 @@ const app = express()
 
 
 app.get('', (req, res) => {
-  res.send('Hello express!')
+  res.send('<h1>Weather</h1>')
 })
 
 app.get('/help', (req, res) => {
-  res.send('Help page')
+  res.send({
+    name: "Guillamoure",
+    age: 21
+  })
 })
 
 app.get('/about', (req, res) => {
-  res.send('About page')
+  res.send('<h2>About</h2>')
 })
 
 app.get('/weather', (req, res) => {
-  res.send('Weather page')
+  res.send({
+    forecase: "Not good bud",
+    location: "Nowheresville, CA"
+  })
 })
 
 app.listen(3000, () => {
