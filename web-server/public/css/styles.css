@@ -13,3 +13,17 @@ img {
 p {
   color: chartreuse;
 }
+
+a {
+  font-size: 20px;
+  background-color: white;
+  margin: 2px;
+  padding: 3px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+a:hover {
+  background-color: navy;
+  color: white
+}
