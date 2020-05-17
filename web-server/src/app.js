@@ -1,6 +1,9 @@
 const path = require('path')
 const express = require('express')
 const hbs =  require('hbs')
+require('dotenv').config()
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
 
 const app = express()
 
@@ -45,10 +48,23 @@ app.get('/weather', (req, res) => {
       error: "Please provide an address"
     })
   }
-  res.send({
-    address: req.query.address,
-    forecast: "Not good bud",
-    location: "Nowheresville, CA"
+  geocode(req.query.address, (error, { latitude, longitude, location } = {} ) => {
+    if (error){
+      return res.send({ error })
+    } else {
+      forecast(latitude, longitude, (error, { overall, temperature, feelslike}) => {
+        if (error){
+          return res.send({ error })
+        }
+        // console.log(location)
+        // console.log(overall + `. It is currently ${temperature} degrees out. It feels like ${feelslike} degrees out.`)
+        res.send({
+          address: req.query.address,
+          forecast: `${overall}. It is currently ${temperature} degrees out. It feels like ${feelslike} degrees out.`,
+          location
+        })
+      })
+    }
   })
 })
 
